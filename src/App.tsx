@@ -1,35 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
+import React, { useState } from "react";
+import CitySearch from "./components/CitySearch";
+import WeatherForecast from "./components/WeatherForecast";
+import PlacesList from "./components/PlacesList";
+import { getCitiesByName } from "./services/reservamos";
+import { getWeatherByCoordinates } from "./services/openweathermap";
+import { LoadingProvider, useLoading } from "./context/LoadingContext";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [weatherData, setWeatherData] = useState(null);
+  const [places, setPlaces] = useState([]);
+
+  const { setLoading } = useLoading();
+
+  const fetchWeather = async (city: string) => {
+    setLoading(true);
+    try {
+      const cities = await getCitiesByName(city);
+      setPlaces(cities);
+
+      if (cities.length > 0) {
+        const { lat, long } = cities[0];
+        fetchWeatherByCoordinates(lat, long);
+      } else {
+        alert("City not found!");
+      }
+    } catch (error) {
+      alert("Error fetching places data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchWeatherByCoordinates = async (lat: string, lon: string) => {
+    setLoading(true);
+    try {
+      const weatherData = await getWeatherByCoordinates(lat, lon);
+      setWeatherData(weatherData);
+    } catch (error) {
+      alert("Error fetching weather data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePlaceClick = (place: any) => {
+    fetchWeatherByCoordinates(place.lat, place.long);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container mx-auto p-6">
+      <div className="text-center">
+        <h1 className="text-3xl font-boldmb-8">Weather Forecast</h1>
+        <small>Made with {"<3"} by Emiliano Pacheco - emipmttt@gmail.com</small>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      <CitySearch onCitySelected={fetchWeather} />
+      <PlacesList places={places} onPlaceClick={handlePlaceClick} />
+      <WeatherForecast weatherData={weatherData} />
+    </div>
+  );
 }
 
-export default App
+export default function AppWrapper() {
+  return (
+    <LoadingProvider>
+      <App />
+    </LoadingProvider>
+  );
+}
