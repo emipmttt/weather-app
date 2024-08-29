@@ -1,50 +1,60 @@
-# React + TypeScript + Vite
+# Weather Forecast Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React application built using Vite, DaisyUI, and Recharts to display weather forecasts. The app allows users to search for cities, view a list of available places, and check the weather forecast for selected cities over the next 5 days. The weather data is visualized using bar charts to show minimum and maximum temperatures.
 
-Currently, two official plugins are available:
+## Code Challenge
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This application was created as part of a coding challenge to demonstrate the ability to integrate APIs, manage application state, and visualize data using charts.
 
-## Expanding the ESLint configuration
+The project was developed by Emiliano Pacheco.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- **City Search**: Users can input city names to search for places.
+- **Places List**: Displays a horizontal scrollable list of places.
+- **Weather Forecast**: Shows weather data for selected cities, with charts displaying min and max temperatures.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Tech Stack
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **React**: For building the user interface.
+- **Vite**: For fast development and bundling.
+- **DaisyUI**: For UI components and styling.
+- **Recharts**: For charting and data visualization.
+- **TypeScript**: For type safety.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## API Integration
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Reservamos API**: Used to get city data and geographic coordinates.
+- **OpenWeatherMap API**: Used to get weather forecasts based on coordinates.
+
+## Setup
+
+1. **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+2. **Run the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+3. **Open the application in your browser:**
+
+    Visit `http://localhost:5173/` to view the app.
+
+## Usage
+
+1. Enter a city name in the search bar and click "Search" to find places.
+2. Click on a place from the list to fetch and display the weather forecast.
+3. View the weather forecast data in bar charts showing min and max temperatures for each day.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or comments, please reach out to Emiliano Pacheco at [emipmttt@gmail.com](mailto:emipmttt@gmail.com).
