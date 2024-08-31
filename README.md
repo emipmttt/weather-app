@@ -1,5 +1,8 @@
 # Weather Forecast Application
 
+![796_1x_shots_so](https://github.com/user-attachments/assets/109dc79e-0475-4b11-9d81-46a59f68550f)
+
+
 This project is a React application built using Vite, DaisyUI, and Recharts to display weather forecasts. The app allows users to search for cities, view a list of available places, and check the weather forecast for selected cities over the next 5 days. The weather data is visualized using bar charts to show minimum and maximum temperatures.
 
 ## Code Challenge
